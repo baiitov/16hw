@@ -1,0 +1,9 @@
+.input_form{
+    display: flex;
+  flex-direction: column;
+  
+}
+.error{
+  color: rgb(231, 38, 38);
+  
+}
