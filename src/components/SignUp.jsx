@@ -3,9 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { initialState, UserReducer } from '../reducer'
 import './SignUp.css'
 
-
-
-
 function SignUp(props) {
 	const navigate = useNavigate()
 	const [disabled, setDisabled] = useState(false)
@@ -32,7 +29,13 @@ function SignUp(props) {
 	const SubmitHandler = (event) => {
 		event.preventDefault()
 		const newData = {
+			name: user.nameValue.value,
+			email: user.emailValue.value,
+			password: user.passwordValue.value,
+			id: Math.random().toString(),
 		}
+		props.onPostHandler(newData)
+		return navigate('/Login')
 	}
 	useEffect(() => {
 		const identifer = setTimeout(() => {
@@ -72,14 +75,16 @@ function SignUp(props) {
 			<p className='error'>{user.emailValue.error}</p>
 
 			<label>password</label>
-			<input			
+			<input
 				onChange={PasswordChangeHandler}
 				type='password'
 				placeholder='password'
 				onBlur={PasswordBlurHandler}
 			/>
 			<p className='error'>{user.passwordValue.error}</p>
-			<button disabled={!disabled} onClick={()=>navigate('/Login')}>OK</button>
+			<button type='submit' disabled={!disabled}>
+				OK
+			</button>
 		</form>
 	)
 }

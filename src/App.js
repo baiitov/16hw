@@ -5,13 +5,27 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 
 function App() {
+	async function postchangeHandler(newData) {
+		const response = await fetch(
+			'https://react-http-movies-319e4-default-rtdb.firebaseio.com/movies.json',
+			{
+				method: 'POST',
+				body: JSON.stringify(newData),
+				headers: {
+					'Content-type': 'application/json',
+				},
+			},
+		)
+	}
 	return (
 		<BrowserRouter>
 			<div className='app'>
 				<Routes>
-          <Route path = '*' element ={<Navigate to ='/SignUp' replace/>}/>
-					<Route path ='/SignUp' element ={<SignUp/>}/>
-          <Route path = '/Login' element ={<Login/>}/>
+					<Route
+						path='*'
+						element={<SignUp onPostHandler={postchangeHandler} />}
+					/>
+					<Route path='/Login' element={<Login />} />
 				</Routes>
 			</div>
 		</BrowserRouter>
